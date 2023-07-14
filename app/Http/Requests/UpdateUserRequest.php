@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $user = request()->route('user');
+
         return [
             'name' => 'required',
             'email' => 'required|email:rfc,dns|unique:users,email,' . $user->id,

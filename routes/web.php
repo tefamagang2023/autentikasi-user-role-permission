@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
-    Route::group(['middleware' => ['guest']], function() {
+    Route::group(['middleware' => ['guest']], function () {
         /**
          * Register Routes
          */
@@ -32,10 +32,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
     });
 
-    Route::group(['middleware' => ['auth']], function() {
+    Route::group(['middleware' => ['auth']], function () {
         /**
          * Logout Routes
          */
@@ -44,7 +43,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         /** * User Routes
          */
-        Route::group(['prefix' => 'users'], function() {
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UsersController@index')->name('users.index');
             Route::get('/create', 'UsersController@create')->name('users.create');
             Route::post('/create', 'UsersController@store')->name('users.store');
@@ -57,7 +56,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * User Routes
          */
-        Route::group(['prefix' => 'posts'], function() {
+        Route::group(['prefix' => 'posts'], function () {
             Route::get('/', 'PostsController@index')->name('posts.index');
             Route::get('/create', 'PostsController@create')->name('posts.create');
             Route::post('/create', 'PostsController@store')->name('posts.store');
