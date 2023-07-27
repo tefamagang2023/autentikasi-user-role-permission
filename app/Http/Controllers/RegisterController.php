@@ -25,9 +25,11 @@ class RegisterController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function register(RegisterRequest $request) 
+    public function register(RegisterRequest $request)
     {
         $user = User::create($request->validated());
+        $user->assignRole('user');
+
 
         auth()->login($user);
 

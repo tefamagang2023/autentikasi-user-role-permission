@@ -8,9 +8,9 @@
         </div>
 
         <div class="container mt-4">
-            @if ($count($errors) > 0)
+            @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops !</strong>There were some problems with your input. <br><br>
+                    <strong>Whoops !</strong>There were some problems with your input.<br><br>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -19,16 +19,39 @@
                 </div>
             @endif
 
-            <form action="{{ route('roles.update', $role->id) }}" method="POST">
-                @method('path')
+            <form method="POST" action="{{ route('roles.update', $role->id) }}">
+                @method('patch')
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" value="{{ $role->name }}" class="form-control" name="name" placeholder="Name"
+                    <input value="{{ $role->name }}" type="text" class="form-control" name="name" placeholder="Name"
                         required>
                 </div>
 
-                <label for="permissions" class="form-label">Asign Permissions</label>
+                <label for="permissions" class="form-label">Assign Permissions</label>
+
+                <table class="table table-striped">
+                    <thead>
+                        <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
+                        <th scope="col" width="20%">Name</th>
+                        <th scope="col" width="1%">Guard</th>
+                    </thead>
+
+                    @foreach ($permissions as $permission)
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="permission[{{ $permission->name }}]"
+                                    value="{{ $permission->name }}" class='permission'
+                                    {{ in_array($permission->name, $rolePermissions) ? 'checked' : '' }}>
+                            </td>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->guard_name }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
             </form>
         </div>
     </div>

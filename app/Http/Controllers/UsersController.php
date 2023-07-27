@@ -26,11 +26,19 @@ class UsersController extends Controller
         return view('users.create');
     }
 
-    public function store(User $user, StoreUserRequest $request)
+    public function store(Request $request)
     {
-        $user->create(array_merge($request->validate(), [
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'string', 'max:100', 'email', 'unique:' . User::class],
+            'username' => 'required|unique:users,username'
+        ]);
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'username' => $validated['username'],
             'password' => 'test'
-        ]));
+        ]);
 
         return redirect()->route('users.index')
             ->withSuccess(__('User created successfully.'));

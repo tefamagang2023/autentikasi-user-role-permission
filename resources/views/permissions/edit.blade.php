@@ -10,7 +10,7 @@
         <div class="container mt-4">
 
             <form action="{{ route('permissions.update', $permission->id) }}" method="POST">
-                @method('path')
+                @method('patch')
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>

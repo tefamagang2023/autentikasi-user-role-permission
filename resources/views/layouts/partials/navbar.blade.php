@@ -10,11 +10,18 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{{ route('home.index') }}" class="nav-link px-2 text-secondary">Home</a></li>
                 @auth
-                    @role('admin')
+                    @can('Manage Users')
                         <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">User</a></li>
+                    @endcan
+                    @can('Manage Roles')
                         <li><a href="{{ route('roles.index') }}" class="nav-link px-2 text-white">Roles</a></li>
-                    @endrole
-                    <li><a href="{{ route('posts.index') }}" class="nav-link px-2 text-white">Posts</a></li>
+                    @endcan
+                    @can('Manage Permissions')
+                        <li><a href="{{ route('permissions.index') }}" class="nav-link px-2 text-white">Permissions</a></li>
+                    @endcan
+                    @can('read posts')
+                        <li><a href="{{ route('posts.index') }}" class="nav-link px-2 text-white">Posts</a></li>
+                    @endcan
                 @endauth
             </ul>
 

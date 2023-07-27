@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -67,7 +67,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.edit', [
+        // dd($post);
+        return view('posts.edit', [
             'post' => $post
         ]);
     }
@@ -95,6 +96,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // dd($post);
+
         $post->delete();
 
         return redirect()->route('posts.index')

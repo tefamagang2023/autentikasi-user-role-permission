@@ -10,7 +10,7 @@
         <div class="container mt-4">
 
             <form action="{{ route('posts.update', $post->id) }}" method="POST">
-                @method('path')
+                @method('patch')
                 @csrf
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class StoreUserRequest extends FormRequest
 {
@@ -25,8 +27,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email:rfc,dns|unique:users,email',
-            'username' => 'required|unique:user,username'
+            'email' => ['required', 'string', 'max:100', 'email', 'unique:' . User::class],
+            'username' => 'required|unique:users,username'
             //
         ];
     }

@@ -23,7 +23,8 @@
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label ">Name</label>
-                    <input type="text" value="{{ old('name') }}" class="form-control" placeholder="Name" required>
+                    <input type="text" value="{{ old('name') }}" class="form-control" placeholder="Name" name="name"
+                        required>
                 </div>
 
                 <label for="permissions" class="form-label">Assign Permissions</label>
@@ -47,7 +48,7 @@
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn=primary">Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
                 <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
             </form>
         </div>

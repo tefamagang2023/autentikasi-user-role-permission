@@ -1,7 +1,7 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <h1> class="mb-3">User Role and Permissions</h1>
+    <h1> User Role and Permissions</h1>
 
     <div class="bg-light p-4 rounded">
         <h2>Permissions</h2>
@@ -17,14 +17,19 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th width="1%">No</th>
                     <th scope="col" width="15%">Name</th>
                     <th scope="col">Guard</th>
                     <th scope="col" colspan="3" width="1%"></th>
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $no = 1;
+                @endphp
                 @foreach ($permissions as $permission)
                     <tr>
+                        <td>{{ $no }}</td>
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->guard_name }}</td>
                         <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info btn-sm">Edit</a>
@@ -32,13 +37,16 @@
                         <td>
                             {!! Form::open([
                                 'method' => 'DELETE',
-                                'route' => ['permission.destroy', $permission->id],
+                                'route' => ['permissions.destroy', $permission->id],
                                 'style' => 'display:inline',
                             ]) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
+                    @php
+                        $no++;
+                    @endphp
                 @endforeach
             </tbody>
         </table>

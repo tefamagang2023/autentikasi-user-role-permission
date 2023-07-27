@@ -17,14 +17,14 @@ class PermissinonMiddleware
      */
     public function handle(Request $request, Closure $next, $permission = null, $guard = null)
     {
-        $authGuard = app('auth')->guard($Guard);
+        $authGuard = app('auth')->guard($guard);
 
         if ($authGuard->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
         if (!is_null($permission)) {
-            $permissions =is_array($permission)
+            $permissions = is_array($permission)
                 ? $permission
                 : explode('|', $permission);
         }
@@ -41,6 +41,6 @@ class PermissinonMiddleware
                 return $next($request);
             }
         }
-        throwUnauthorizedException::forPermissions($permissions);
+        throw UnauthorizedException::forPermissions($permissions);
     }
 }
